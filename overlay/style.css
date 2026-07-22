@@ -1,0 +1,65 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+.ad-card {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(20, 20, 24, 0.92);
+  border: 2px solid #9147ff;
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.ad-card.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.ad-card.hidden {
+  display: none;
+}
+
+#ad-image {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.ad-info {
+  color: #fff;
+  max-width: 240px;
+}
+
+.ad-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ad-price {
+  font-size: 15px;
+  color: #b794ff;
+  margin-bottom: 8px;
+}
+
+.ad-cta {
+  font-size: 13px;
+  color: #ddd;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

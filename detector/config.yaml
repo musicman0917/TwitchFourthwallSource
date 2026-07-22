@@ -1,0 +1,19 @@
+# Merch-ad-overlay detector config.
+# Run `python detector.py --calibrate` after adding reference photos to
+# see live similarity scores and pick good values for match_threshold below.
+
+webcam_index: 0          # try 1, 2... if 0 isn't your streaming camera
+http_port: 8766           # overlay + websocket are both served on this port
+frame_interval_seconds: 0.3   # how often to sample the webcam
+match_threshold: 0.28     # cosine similarity needed to count as a match (tune via --calibrate)
+consecutive_frames: 5     # matches in a row required before firing (debounces flicker)
+cooldown_seconds: 90      # minimum time between triggers for the same product
+
+# One entry per product you want to auto-detect.
+# `handle` must match the product's slug/handle in your Fourthwall store
+# (visible in the product's storefront URL).
+products:
+  - handle: "example-tee"
+    reference_images:
+      - "reference_images/example-tee-1.jpg"
+      - "reference_images/example-tee-2.jpg"
