@@ -44,19 +44,23 @@ async function fetchProduct(handle) {
 
 function pickImage(data) {
   if (Array.isArray(data.images) && data.images.length > 0) {
-    return data.images[0].url || data.images[0].src || "";
+    return data.images[0].url;
   }
   return "";
 }
 
 function pickPrice(data) {
   const variant = Array.isArray(data.variants) ? data.variants[0] : null;
-  const priced = (variant && variant.unitPrice) || data.unitPrice || data.price;
-  if (priced && priced.value != null) {
-    const currency = priced.currency ? ` ${priced.currency}` : "";
-    return `${priced.value}${currency}`;
+  const price = variant && variant.unitPrice;
+  if (price && price.value != null) {
+    return `${price.value} ${price.currency}`;
   }
   return "";
+}
+
+function productUrl(data, handle) {
+  const slug = data.slug || handle;
+  return `https://${cfg.shopDomain}.fourthwall.com/products/${slug}`;
 }
 
 async function showAd(handle) {
@@ -66,12 +70,14 @@ async function showAd(handle) {
     nameEl.textContent = data.name || handle;
     priceEl.textContent = pickPrice(data);
     ctaEl.textContent = `Get it: ${cfg.shopDomain}.fourthwall.com`;
+    ctaEl.href = productUrl(data, handle);
   } catch (err) {
     console.error("[overlay] failed to load product", handle, err);
     nameEl.textContent = handle;
     priceEl.textContent = "";
     imageEl.src = "";
     ctaEl.textContent = `${cfg.shopDomain}.fourthwall.com`;
+    ctaEl.href = `https://${cfg.shopDomain}.fourthwall.com`;
   }
 
   card.classList.remove("hidden");

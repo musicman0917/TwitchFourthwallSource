@@ -111,13 +111,14 @@ holding the item up.
   centered, well-lit, and fills a good portion of the frame, and works
   better for visually distinct prints/logos than for plain solid-color
   items. Expect to spend a few minutes calibrating.
-- The Fourthwall Storefront API's exact JSON field names weren't verified
-  against a live store in this build (docs were unreachable from this
-  environment). `overlay/app.js` logs the raw API response to the browser
-  console (F12 in OBS's browser source, or a normal browser) — if the name
-  /price/image show up blank, check that log and adjust the small
-  `pickImage`/`pickPrice` helpers in `overlay/app.js` to match the real
-  field names.
+- Uses Fourthwall's Storefront API (`https://storefront-api.fourthwall.com/v1`),
+  authenticated via a `storefront_token` query parameter, GET
+  `/products/{handle}`. Response shape: `{ name, slug, images: [{ url, ... }],
+  variants: [{ unitPrice: { value, currency }, ... }], ... }` — confirmed
+  against Fourthwall's own open-source storefront example. `overlay/app.js`
+  logs the raw response to the browser console (F12 in OBS's browser source
+  properties, or a normal browser) if you ever need to double check a field
+  for your store.
 - The detector opens the webcam exclusively while running; if your
   streaming software also needs raw access to the same physical camera at
   the same time, check your OS/driver allows shared access, or point OBS at
